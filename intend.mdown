@@ -1,0 +1,25 @@
+## 销毁一个活动
+按一下Back键就可以销毁当前的活动，Activity中也提供了一个`finish()`方法用来销毁活动。
+# Intent
+使用Intent在活动之间穿梭。
+## 使用显示Intent
+Intent是Android程序==各组件==之间进行交互的一种重要方式，它不仅可以指明当前组件想要执行的动作，还可以在不同组件中传递数据。Intent一般可被用于启动活动、启动服务、以及发送广播等场景。下面是典型的使用Intent启动Activity的场景。
+1.用构造函数`Intent(Context packageContext, Class<?> cls)`初始化一个Intent。其中第一个参数指明当前Activity，第二个参数指明目标Activity
+2.调用Activity类中提供的`startActivity(Intent intent)`方法，传入初始化后的Intent启动活动。
+
+## 使用隐式Intent
+相比于显示Intent，隐式Intent则含蓄了许多，它并不明确指出我们想要启动哪一个活动，而是制定了一系列更为抽象的action和category等信息，然后交由系统去分析这个Intent，并帮我们找出合适的活动去启动。
+
+在`AndroidManifes.xml`中配置Activity能够响应的action和category。
+1.只有action和category中的内容同时能够匹配上Intent中指定的action和category时，这个活动才能响应改Intent。
+2.每个Intent中只能指定一个action，但却能指定多个category。
+```xml
+<activity android:name=".SecondActivity" >
+	<intent-filter>
+		<action android:name="com.example.activitytest.ACTION_START" />
+		<category android:name="android.intent.category.DEFAULT" />
+	</intent-filter>
+</activity>
+```
+
+##更多隐式Intent的用法
